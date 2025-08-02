@@ -1,6 +1,5 @@
-# Portfolio
 
-<h3 align="center">Yaswanth's Portfolio - Minimalist Hacker Theme</h3>
+<h3 align="center">Portfolio</h3>
 
 <div align="center">
   <div>
