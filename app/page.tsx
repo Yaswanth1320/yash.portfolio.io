@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import emailjs from "@emailjs/browser";
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
