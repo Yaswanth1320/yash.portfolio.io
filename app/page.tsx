@@ -148,13 +148,15 @@ export default function Home() {
                 LinkedIn.com
               </a>
               <a
-                href="mailto:hello@yourdomain.com"
+                href="https://blogs-pi-swart.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="block p-4 border border-gray-600 hover:border-white transition-all duration-300 hover:bg-white/5 group"
               >
                 <span className="text-yellow-400 group-hover:text-yellow-300">
                   →
                 </span>{" "}
-                hello@yourdomain.com
+                My Blogs
               </a>
               <a
                 href="https://stackoverflow.com/users/31198912/yaswanth"
@@ -185,6 +187,17 @@ export default function Home() {
                 AI Resume Analyzer
               </a>
               <a
+                href="https://blogs-pi-swart.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block p-4 border border-gray-600 hover:border-white transition-all duration-300 hover:bg-white/5 group"
+              >
+                <span className="text-purple-400 group-hover:text-purple-300">
+                  →
+                </span>{" "}
+                My Blogs
+              </a>
+              <a
                 href="https://pitchstack.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -203,17 +216,6 @@ export default function Home() {
               >
                 <span className="text-red-400 group-hover:text-red-300">→</span>{" "}
                 Utility Box(Github Repo)
-              </a>
-              <a
-                href="https://dropzonr.vercel.app/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block p-4 border border-gray-600 hover:border-white transition-all duration-300 hover:bg-white/5 group"
-              >
-                <span className="text-purple-400 group-hover:text-purple-300">
-                  →
-                </span>{" "}
-                DropZone
               </a>
             </div>
           </div>
