@@ -94,7 +94,7 @@ export default function Home() {
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen p-8">
         {/* Avatar placeholder */}
         <div className="mb-8 animate-fade-in">
-          <div className="w-26 h-26 rounded-full bg-gradient-to-br from-white to-gray-300 flex items-center justify-center text-black text-4xl font-bold animate-pulse">
+          <div className="w-26 h-26 rounded-full bg-gradient-to-br from-white to-gray-300 flex items-center justify-center text-black text-4xl font-bold ">
             Y
           </div>
         </div>
