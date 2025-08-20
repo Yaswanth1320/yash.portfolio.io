@@ -1,326 +1,534 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import emailjs from "@emailjs/browser";
+import { Github, Linkedin, Globe, MessageSquare } from "lucide-react"; // icons
+import { motion } from "framer-motion";
+
+import {
+  SiOpenai,
+  SiBookstack,
+  SiNotion,
+  SiGooglemeet,
+  SiGithub,
+} from "react-icons/si";
+import {
+  FaRobot,
+  FaNotesMedical,
+  FaHeartbeat,
+  FaToolbox,
+} from "react-icons/fa";
+
+import {
+  SiExpo,
+  SiSanity,
+  SiJavascript,
+  SiTypescript,
+  SiReact,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiPython,
+  SiPostgresql,
+  SiMongodb,
+  SiDocker,
+  SiGit,
+  SiTailwindcss,
+  SiPrisma,
+  SiSupabase,
+  SiGraphql,
+} from "react-icons/si";
+import FragmentCanvas from "@/components/FragmentCanvas";
 
 export default function Home() {
-  const [isLoaded, setIsLoaded] = useState(false);
   const [currentText, setCurrentText] = useState("");
   const fullText = "Yaswanth - Full Stack Developer";
   const [textIndex, setTextIndex] = useState(0);
-  // Contact form state - commented out for now
-  // const [formData, setFormData] = useState({
-  //   name: "",
-  //   email: "",
-  //   message: "",
-  // });
-  // const [isSubmitting, setIsSubmitting] = useState(false);
-  // const [submitStatus, setSubmitStatus] = useState("");
 
+  // Contact form state
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState("");
+
+  // Typewriter effect
   useEffect(() => {
-    setIsLoaded(true);
-
     const timer = setInterval(() => {
       if (textIndex < fullText.length) {
         setCurrentText(fullText.slice(0, textIndex + 1));
         setTextIndex(textIndex + 1);
-      } else {
-        clearInterval(timer);
-      }
+      } else clearInterval(timer);
     }, 100);
-
     return () => clearInterval(timer);
   }, [textIndex]);
 
-  // Contact form handlers - commented out for now
-  // const handleInputChange = (
-  //   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  // ) => {
-  //   setFormData({
-  //     ...formData,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
+  // Contact form handlers
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-  // EmailJS form submission - commented out for now
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   setIsSubmitting(true);
-  //   setSubmitStatus("");
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus("");
 
-  //   try {
-  //     // Initialize EmailJS with your public key
-  //     emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your actual EmailJS public key
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-  //     const result = await emailjs.send(
-  //       "YOUR_SERVICE_ID", // Replace with your EmailJS service ID
-  //       "YOUR_TEMPLATE_ID", // Replace with your EmailJS template ID
-  //       {
-  //         from_name: formData.name,
-  //         from_email: formData.email,
-  //         message: formData.message,
-  //         to_name: "Yaswanth",
-  //       }
-  //     );
-
-  //     if (result.status === 200) {
-  //       setSubmitStatus("success");
-  //       setFormData({ name: "", email: "", message: "" });
-  //     } else {
-  //       setSubmitStatus("error");
-  //     }
-  //   } catch (error) {
-  //     console.error("Email sending failed:", error);
-  //     setSubmitStatus("error");
-  //   } finally {
-  //     setIsSubmitting(false);
-  //   }
-  // };
+      if (res.ok) {
+        setSubmitStatus("success");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        setSubmitStatus("error");
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-black text-white font-mono overflow-hidden">
-      {/* Animated background grid */}
-      <div className="fixed inset-0 opacity-20">
-        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent animate-pulse"></div>
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.1) 1px, transparent 0)`,
-            backgroundSize: "50px 50px",
-          }}
-        ></div>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white font-mono">
+      {/* Glow overlay */}
+      <FragmentCanvas />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.05),_transparent)] pointer-events-none"></div>
 
-      {/* Main content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen p-8">
-        {/* Avatar placeholder */}
-        <div className="mb-8 animate-fade-in">
-          <div className="w-26 h-26 rounded-full bg-gradient-to-br from-white to-gray-300 flex items-center justify-center text-black text-4xl font-bold ">
-            Y
-          </div>
+        {/* Typewriter Name */}
+        <h1 className="text-2xl md:text-6xl mt-5 font-bold mb-6 pt-6 animate-fade-in">
+          {currentText}
+          <span className="animate-blink">|</span>
+        </h1>
+        <p className="text-xl text-gray-400 mb-12 animate-fade-in-delay">
+          Building digital experiences with code
+        </p>
+
+        {/* 🌐 Social Media Links */}
+        <div className="flex flex-wrap justify-center gap-6 mb-20">
+          <a
+            href="https://github.com/Yaswanth1320"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-4 py-2 border border-gray-600 rounded-lg transition-all duration-300 hover:bg-gray-800 hover:text-white hover:border-gray-400"
+          >
+            <Github className="w-5 h-5" /> GitHub
+          </a>
+          <a
+            href="https://www.linkedin.com/in/yashwanth-paravathala-380028322/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-4 py-2 border border-gray-600 rounded-lg transition-all duration-300 hover:bg-blue-600 hover:text-white hover:border-blue-400"
+          >
+            <Linkedin className="w-5 h-5" /> LinkedIn
+          </a>
+          <a
+            href="https://blogs-pi-swart.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-4 py-2 border border-gray-600 rounded-lg transition-all duration-300 hover:bg-green-600 hover:text-white hover:border-green-400"
+          >
+            <Globe className="w-5 h-5" /> Blog
+          </a>
+          <a
+            href="https://stackoverflow.com/users/31198912/yaswanth"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-4 py-2 border border-gray-600 rounded-lg transition-all duration-300 hover:bg-orange-500 hover:text-white hover:border-orange-400"
+          >
+            <MessageSquare className="w-5 h-5" /> Stack Overflow
+          </a>
         </div>
 
-        {/* Name with typewriter effect */}
-        <div className="text-center mb-8">
-          <h1 className="text-2xl md:text-6xl font-bold mb-4 animate-fade-in">
-            {currentText}
-            <span className="animate-blink">|</span>
-          </h1>
-          <p className="text-xl text-gray-400 animate-fade-in-delay">
-            Building digital experiences with code
-          </p>
-        </div>
-
-        {/* Bio section */}
-        <div className="max-w-2xl text-center mb-12 animate-fade-in-delay-2">
-          <p className="text-lg text-gray-300 mb-2 leading-relaxed">
+        {/* Bio */}
+        <div className="max-w-2xl text-center mb-20 animate-fade-in-delay-2">
+          <p className="text-lg text-gray-300 leading-relaxed">
             I&apos;m a passionate full-stack developer who loves creating
             elegant solutions to complex problems. When I&apos;m not coding,
-            you&apos;ll find me exploring new technologies and contributing to
-            open source.
+            I&apos;m exploring new technologies and contributing to open source.
           </p>
         </div>
 
-        {/* Links section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl w-full animate-fade-in-delay-3">
-          <div className="space-y-4">
-            <h3 className="text-xl font-bold mb-4 text-center">Connect</h3>
-            <div className="space-y-3">
-              <a
-                href="https://github.com/Yaswanth1320"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block p-4 border border-gray-600 hover:border-white transition-all duration-300 hover:bg-white/5 group"
-              >
-                <span className="text-green-400 group-hover:text-green-300">
-                  →
-                </span>{" "}
-                GitHub.com/Yaswanth1320
-              </a>
-              <a
-                href="https://www.linkedin.com/in/yashwanth-paravathala-380028322/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block p-4 border border-gray-600 hover:border-white transition-all duration-300 hover:bg-white/5 group"
-              >
-                <span className="text-blue-400 group-hover:text-blue-300">
-                  →
-                </span>{" "}
-                LinkedIn.com
-              </a>
-              <a
-                href="https://blogs-pi-swart.vercel.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block p-4 border border-gray-600 hover:border-white transition-all duration-300 hover:bg-white/5 group"
-              >
-                <span className="text-yellow-400 group-hover:text-yellow-300">
-                  →
-                </span>{" "}
-                My Blogs
-              </a>
-              <a
-                href="https://stackoverflow.com/users/31198912/yaswanth"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block p-4 border border-gray-600 hover:border-white transition-all duration-300 hover:bg-white/5 group"
-              >
-                <span className="text-orange-400 group-hover:text-orange-300">
-                  →
-                </span>{" "}
-                StackOverflow.com
-              </a>
-            </div>
-          </div>
+        {/* Projects */}
+        <h3 className="text-3xl font-bold mb-10">Projects</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl w-full mb-20">
+          {[
+            {
+              title: "AI Resume Analyzer",
+              desc: "Analyze resumes with AI to give feedback & improve job chances.",
+              link: "https://ai-resume-analyzer-ten-brown.vercel.app/",
+              icon: <SiOpenai className="text-purple-400" />,
+            },
+            {
+              title: "AI Notes App",
+              desc: "Smart note-taking app with AI summaries & search.",
+              link: "https://ai-notes-app-iota-sage.vercel.app/",
+              icon: <SiNotion className="text-white" />,
+            },
+            {
+              title: "Companion AI",
+              desc: "An AI-powered companion to assist with tasks and conversations.",
+              link: "https://companion-ai-eta.vercel.app/",
+              icon: <FaRobot className="text-green-400" />,
+            },
+            {
+              title: "Pitch Stack",
+              desc: "Tool for startups to build and share investor-ready pitch decks.",
+              link: "https://pitchstack.vercel.app/",
+              icon: <SiBookstack className="text-yellow-400" />,
+            },
+            {
+              title: "Medipilot",
+              desc: "MediPilot is an intelligent clinical assistant that acts as a secure co-pilot for doctors, nurses, and medical staff.",
+              link: "https://github.com/Yaswanth1320/medipilot",
+              icon: <FaNotesMedical className="text-red-400" />,
+            },
+            {
+              title: "FitBotX",
+              desc: "FitBotX is a sleek and simple fitness tracking app built for beginners",
+              link: "https://github.com/Yaswanth1320/FitBotX",
+              icon: <FaHeartbeat className="text-pink-500" />,
+            },
+            {
+              title: "Utility Box",
+              desc: "A collection of useful developer utilities in one place.",
+              link: "https://github.com/Yaswanth1320/utilityBox",
+              icon: <FaToolbox className="text-blue-400" />,
+            },
+          ].map((proj, idx) => (
+            <a
+              key={idx}
+              href={proj.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative flex flex-col p-4 rounded-xl border border-gray-700 bg-gradient-to-br from-gray-900 to-gray-800 hover:from-gray-800 hover:to-gray-900 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-[1.015] overflow-hidden"
+            >
+              {/* Icon Badge */}
+              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-700/40 group-hover:bg-green-500/20 transition-colors duration-300 mb-3">
+                <span className="text-xl text-green-400">{proj.icon}</span>
+              </div>
 
-          <div className="space-y-4">
-            <h3 className="text-xl font-bold mb-4 text-center">Projects</h3>
-            <div className="space-y-3">
-              <a
-                href="https://ai-resume-analyzer-ten-brown.vercel.app/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block p-4 border border-gray-600 hover:border-white transition-all duration-300 hover:bg-white/5 group"
-              >
-                <span className="text-purple-400 group-hover:text-purple-300">
-                  →
-                </span>{" "}
-                AI Resume Analyzer
-              </a>
-              <a
-                href="https://blogs-pi-swart.vercel.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block p-4 border border-gray-600 hover:border-white transition-all duration-300 hover:bg-white/5 group"
-              >
-                <span className="text-purple-400 group-hover:text-purple-300">
-                  →
-                </span>{" "}
-                My Blogs
-              </a>
-              <a
-                href="https://pitchstack.vercel.app/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block p-4 border border-gray-600 hover:border-white transition-all duration-300 hover:bg-white/5 group"
-              >
-                <span className="text-cyan-400 group-hover:text-cyan-300">
-                  →
-                </span>{" "}
-                Pitch Stack
-              </a>
-              <a
-                href="https://github.com/Yaswanth1320/utilityBox"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block p-4 border border-gray-600 hover:border-white transition-all duration-300 hover:bg-white/5 group"
-              >
-                <span className="text-red-400 group-hover:text-red-300">→</span>{" "}
-                Utility Box(Github Repo)
-              </a>
-            </div>
-          </div>
+              {/* Title + Description */}
+              <h4 className="text-base font-semibold mb-1 group-hover:text-green-400 transition-colors duration-300">
+                {proj.title}
+              </h4>
+              <p className="text-gray-400 text-xs leading-relaxed">
+                {proj.desc}
+              </p>
+
+              {/* Full underline animation (now respects border-radius) */}
+              <span className="absolute bottom-0 left-0 h-0.5 bg-green-400 transition-all duration-500 ease-out w-0 group-hover:w-full rounded-b-xl"></span>
+            </a>
+          ))}
         </div>
 
         {/* Tech Stack */}
-        <div className="max-w-4xl w-full mb-12 animate-fade-in-delay-4">
-          <h3 className="text-2xl font-bold mb-6 text-center mt-20">
-            Tech Stack
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              "JavaScript",
-              "TypeScript",
-              "React",
-              "Next.js",
-              "Node.js",
-              "Python",
-              "PostgreSQL",
-              "MongoDB",
-              "Docker",
-              "AWS",
-              "Git",
-              "Tailwind CSS",
-            ].map((tech, index) => (
-              <div
-                key={tech}
-                className="p-3 border border-gray-600 text-center hover:border-white transition-all duration-300 hover:bg-white/5 group"
-                style={{ animationDelay: `${2 + index * 0.1}s` }}
-              >
-                <span className="group-hover:text-green-400 transition-colors duration-300">
-                  {tech}
-                </span>
+
+        {/* Tech Stack */}
+        <h3 className="text-3xl font-bold mb-10">Tech Stack</h3>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-5xl w-full mb-20">
+          {[
+            {
+              name: "JavaScript",
+              icon: <SiJavascript className="text-yellow-400" />,
+            },
+            {
+              name: "TypeScript",
+              icon: <SiTypescript className="text-blue-500" />,
+            },
+            { name: "React", icon: <SiReact className="text-cyan-400" /> },
+            {
+              name: "Expo",
+              icon: <SiExpo className="text-black dark:text-white" />,
+            },
+            { name: "Next.js", icon: <SiNextdotjs className="text-white" /> },
+            {
+              name: "Node.js",
+              icon: <SiNodedotjs className="text-green-500" />,
+            },
+            { name: "Python", icon: <SiPython className="text-yellow-300" /> },
+            {
+              name: "PostgreSQL",
+              icon: <SiPostgresql className="text-sky-700" />,
+            },
+            { name: "MongoDB", icon: <SiMongodb className="text-green-600" /> },
+            { name: "Docker", icon: <SiDocker className="text-blue-400" /> },
+            { name: "Git", icon: <SiGit className="text-red-500" /> },
+            {
+              name: "Tailwind CSS",
+              icon: <SiTailwindcss className="text-cyan-500" />,
+            },
+            { name: "Prisma", icon: <SiPrisma className="text-white" /> },
+            {
+              name: "Supabase",
+              icon: <SiSupabase className="text-green-500" />,
+            },
+            { name: "GraphQL", icon: <SiGraphql className="text-pink-500" /> },
+            { name: "Sanity", icon: <SiSanity className="text-red-600" /> },
+          ].map((tech, index) => (
+            <div
+              key={tech.name}
+              className="flex flex-row items-center gap-2 justify-center p-5 border border-gray-600 rounded-xl bg-black/20 hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:border-green-400 group"
+            >
+              <div className="text-xl transition-transform duration-300 group-hover:rotate-6">
+                {tech.icon}
               </div>
-            ))}
-          </div>
+              <span className="text-sm font-medium group-hover:text-green-400">
+                {tech.name}
+              </span>
+            </div>
+          ))}
         </div>
 
         {/* Resume Section */}
-        <div className="max-w-4xl w-full mb-12 animate-fade-in-delay-5">
-          <h3 className="text-2xl font-bold mb-6 text-center">Resume</h3>
-          <div className="text-center">
-            <p className="text-lg text-gray-300 mb-6">
-              Want to know more about my experience and skills?
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a
-                href="https://drive.google.com/file/d/1yLe52-zjRH3iMIGQ-NUkFjyDEIkyzpBu/view?usp=sharing" // Replace with your resume link
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block px-8 py-3 bg-white text-black font-semibold rounded-md hover:bg-gray-200 transition-colors duration-300"
-              >
-                📄 View Resume
-              </a>
-              <a
-                href="https://drive.google.com/uc?export=download&id=1yLe52-zjRH3iMIGQ-NUkFjyDEIkyzpBu"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block px-8 py-3 border border-white text-white font-semibold rounded-md hover:bg-white hover:text-black transition-colors duration-300"
-              >
-                ⬇️ Download PDF
-              </a>
-            </div>
-          </div>
-
-          {/* Community Contributions */}
-          <div className="mt-8 text-center">
-            <p className="text-sm text-gray-400 mb-4">
-              💻 I mostly contribute on GitHub and Stack Overflow
-            </p>
-            <div className="flex justify-center gap-6 text-xs text-gray-500 mb-4">
-              <span>🔧 Open Source Projects</span>
-              <span>•</span>
-              <span>📚 Code Reviews</span>
-              <span>•</span>
-              <span>💡 Technical Solutions</span>
-            </div>
-            <div className="flex justify-center gap-6 text-xs text-gray-500">
-              <span>❤️ Problem Solving</span>
-              <span>•</span>
-              <span>🚀 Building Tools</span>
-              <span>•</span>
-              <span>🎯 Clean Code</span>
-            </div>
-          </div>
+        <h3 className="text-2xl font-bold mb-6">Resume</h3>
+        <div className="flex flex-col sm:flex-row gap-4 mb-20">
+          <a
+            href="https://drive.google.com/file/d/1yLe52-zjRH3iMIGQ-NUkFjyDEIkyzpBu/view?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-6 py-3 bg-white text-black font-semibold rounded-md hover:bg-gray-200 transition"
+          >
+            📄 View Resume
+          </a>
+          <a
+            href="https://drive.google.com/uc?export=download&id=1yLe52-zjRH3iMIGQ-NUkFjyDEIkyzpBu"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-6 py-3 border border-white text-white font-semibold rounded-md hover:bg-white hover:text-black transition"
+          >
+            ⬇️ Download PDF
+          </a>
         </div>
 
-        {/* Contact Information */}
-        <div className="max-w-2xl w-full mb-12 animate-fade-in-delay-6">
-          <h3 className="text-2xl font-bold mb-6 text-center">Contact Me</h3>
-          <div className="text-center">
-            <p className="text-lg text-gray-300 mb-4">
-              Interested in working together or just want to say hello?
-            </p>
-            <a
-              href="mailto:yashwanth.paravathala@gmail.com"
-              className="inline-block px-8 py-3 bg-white text-black font-semibold rounded-md hover:bg-gray-200 transition-colors duration-300"
-            >
-              📧 yashwanth.paravathala@gmail.com
-            </a>
-          </div>
+        {/* Education Timeline */}
+        <h3 className="text-2xl font-bold mb-12 text-center">Education</h3>
+        <div className="relative w-full max-w-4xl mx-auto mb-20">
+          {/* Center Line */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 h-full border-l-4 border-gray-700"></div>
+
+          {[
+            {
+              school: "VIT-AP University",
+              degree: "B.Tech in Computer Science Engineering",
+              date: "Dec 2021 – Present",
+              grade: "CGPA: 8.77/10",
+            },
+            {
+              school: "Narayana Junior College, Nellore",
+              degree: "MPC",
+              date: "Aug 2018 – Sep 2020",
+              grade: "CGPA: 9.57/10",
+            },
+            {
+              school: "VBR E.M High School",
+              degree: "SSC",
+              date: "Jun 2017 – Apr 2018",
+              grade: "GPA: 10/10",
+            },
+          ].map((edu, idx) => (
+            <div key={idx} className="mb-12 flex items-center w-full">
+              {/* Left Side */}
+              {idx % 2 === 0 ? (
+                <>
+                  <div className="w-1/2 pr-8 text-right">
+                    <motion.div
+                      initial={{ opacity: 0, x: -120 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }} // smooth cubic ease
+                      viewport={{ once: true, amount: 0.4 }}
+                      className="bg-gray-900 border border-gray-700 px-6 py-4 rounded-xl shadow-lg hover:shadow-green-400/30 transition-all duration-300 inline-block relative"
+                    >
+                      <h4 className="text-lg font-semibold text-white">
+                        {edu.school}
+                      </h4>
+                      <p className="text-sm text-gray-400">{edu.degree}</p>
+                      <p className="text-xs text-gray-500">{edu.date}</p>
+                      <p className="text-sm text-green-400 mt-2 font-medium">
+                        {edu.grade}
+                      </p>
+
+                      {/* Arrow */}
+                      <div className="absolute -right-3 top-1/2 transform -translate-y-1/2 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-gray-900"></div>
+                    </motion.div>
+                  </div>
+                  {/* Dot */}
+                  <div className="w-0 relative">
+                    <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full bg-green-400 border-4 border-gray-900 shadow-lg z-10"></div>
+                  </div>
+                  <div className="w-1/2"></div>
+                </>
+              ) : (
+                /* Right Side */
+                <>
+                  <div className="w-1/2"></div>
+                  {/* Dot */}
+                  <div className="w-0 relative">
+                    <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full bg-green-400 border-4 border-gray-900 shadow-lg z-10"></div>
+                  </div>
+                  <div className="w-1/2 pl-8 text-left">
+                    <motion.div
+                      initial={{ opacity: 0, x: 120 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
+                      viewport={{ once: true, amount: 0.4 }}
+                      className="bg-gray-900 border border-gray-700 px-6 py-4 rounded-xl shadow-lg hover:shadow-green-400/30 transition-all duration-300 inline-block relative"
+                    >
+                      <h4 className="text-lg font-semibold text-white">
+                        {edu.school}
+                      </h4>
+                      <p className="text-sm text-gray-400">{edu.degree}</p>
+                      <p className="text-xs text-gray-500">{edu.date}</p>
+                      <p className="text-sm text-green-400 mt-2 font-medium">
+                        {edu.grade}
+                      </p>
+
+                      {/* Arrow */}
+                      <div className="absolute -left-3 top-1/2 transform -translate-y-1/2 w-0 h-0 border-t-8 border-b-8 border-r-8 border-transparent border-r-gray-900"></div>
+                    </motion.div>
+                  </div>
+                </>
+              )}
+            </div>
+          ))}
         </div>
+
+        {/* Certifications Timeline */}
+        <h3 className="text-2xl font-bold mb-8">Certifications</h3>
+        <div className="relative border-l border-gray-700 max-w-2xl w-full mb-16">
+          {[
+            {
+              title: "AWS Certified Cloud Practitioner",
+              issuer: "Amazon",
+              date: "Feb 2024",
+              sub: "Foundational cloud certification covering AWS services",
+            },
+            {
+              title: "MERN Full Stack Developer",
+              issuer: "Ethnus",
+              date: "Sep 2023",
+              sub: "Full stack web development with MongoDB, Express, React, Node.js",
+            },
+            {
+              title: "Data Structures & Algorithms",
+              issuer: "Great Learning",
+              date: "Apr 2023",
+              sub: "Problem-solving, time/space complexity, and algorithm design",
+            },
+            {
+              title: "MySQL for Developers",
+              issuer: "Cognitive Class",
+              date: "Apr 2023",
+              sub: "Relational database fundamentals and SQL queries",
+            },
+            {
+              title: "Data Visualization with Python",
+              issuer: "Kaggle",
+              date: "Jul 2023",
+              sub: "Python data analysis, visualization with Matplotlib & Seaborn",
+            },
+          ].map((cert, idx) => (
+            <div key={idx} className="mb-8 ml-6 relative">
+              {/* Circle marker */}
+              <span className="absolute -left-3 flex items-center justify-center w-5 h-5 bg-green-400 rounded-full ring-4 ring-gray-900"></span>
+
+              {/* Content */}
+              <div className="p-4 bg-gray-900/50 border border-gray-700 rounded-lg shadow-sm hover:bg-gray-900 transition-all duration-300">
+                <h4 className="text-sm font-semibold text-white">
+                  {cert.title}
+                </h4>
+                <p className="text-gray-400 text-xs">
+                  {cert.issuer} —{" "}
+                  <span className="text-gray-500">{cert.date}</span>
+                </p>
+                <p className="text-gray-500 text-xs mt-1">{cert.sub}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Contact Form */}
+        <h3 className="text-2xl font-bold mb-6 text-white">Contact Me</h3>
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-lg space-y-6 mb-20 p-6 rounded-2xl bg-black/40 border border-gray-700 shadow-lg"
+        >
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-gray-300">
+              Your Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter your name"
+              className="w-full px-4 py-3 rounded-lg bg-black border border-gray-600 text-white placeholder-gray-500 focus:border-white focus:ring-2 focus:ring-white outline-none transition-all"
+              value={formData.name}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-gray-300">
+              Your Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              className="w-full px-4 py-3 rounded-lg bg-black border border-gray-600 text-white placeholder-gray-500 focus:border-white focus:ring-2 focus:ring-white outline-none transition-all"
+              value={formData.email}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-gray-300">
+              Message
+            </label>
+            <textarea
+              name="message"
+              placeholder="Write your message..."
+              rows={4}
+              className="w-full px-4 py-3 rounded-lg bg-black border border-gray-600 text-white placeholder-gray-500 focus:border-white focus:ring-2 focus:ring-white outline-none transition-all resize-none"
+              value={formData.message}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full py-3 bg-white text-black rounded-lg font-semibold hover:bg-gray-200 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isSubmitting ? "Sending..." : "Send Message"}
+          </button>
+
+          {submitStatus === "success" && (
+            <p className="text-green-400 text-sm text-center">
+              ✅ Message sent successfully!
+            </p>
+          )}
+          {submitStatus === "error" && (
+            <p className="text-red-400 text-sm text-center">
+              ❌ Something went wrong. Try again.
+            </p>
+          )}
+        </form>
 
         {/* Footer */}
-        <div className="mt-16 text-center text-gray-500 animate-fade-in-delay-7">
+        <div className="text-center text-gray-500">
           <p className="text-sm">
             Built with Next.js • TypeScript • Tailwind CSS
           </p>
@@ -328,22 +536,6 @@ export default function Home() {
             © 2024 Yaswanth. All rights reserved.
           </p>
         </div>
-      </div>
-
-      {/* Floating particles */}
-      <div className="fixed inset-0 pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-white rounded-full animate-float"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${3 + Math.random() * 4}s`,
-            }}
-          />
-        ))}
       </div>
     </div>
   );
