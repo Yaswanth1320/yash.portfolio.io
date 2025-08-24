@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { Github, Linkedin, Globe, MessageSquare } from "lucide-react"; // icons
 import { motion } from "framer-motion";
-
+import { MdOutlineEventNote } from "react-icons/md";
 import {
   SiOpenai,
   SiBookstack,
@@ -162,6 +162,12 @@ export default function Home() {
         <h3 className="text-3xl font-bold mb-10">Projects</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl w-full mb-20">
           {[
+            {
+              title: "EventNest",
+              desc: "EventNest is a modern events finding platform built with Next.js and Firebase. It allows users to create, manage, and explore events nearby.",
+              link: "https://event-nest-xi.vercel.app/",
+              icon: <MdOutlineEventNote className="text-blue-400" />,
+            },
             {
               title: "AI Resume Analyzer",
               desc: "Analyze resumes with AI to give feedback & improve job chances.",
