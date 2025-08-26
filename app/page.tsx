@@ -17,6 +17,7 @@ import {
   FaNotesMedical,
   FaHeartbeat,
   FaToolbox,
+  FaRegLightbulb
 } from "react-icons/fa";
 
 import {
@@ -185,6 +186,12 @@ export default function Home() {
               desc: "An AI-powered companion to assist with tasks and conversations.",
               link: "https://companion-ai-eta.vercel.app/",
               icon: <FaRobot className="text-green-400" />,
+            },
+            {
+              title: "IdeaHub",
+              desc: "IdeaHub is a modern idea-sharing and ranking platform built with Next.js 15 and React 19.",
+              link: "https://idea-hub-self.vercel.app/",
+              icon: <FaRegLightbulb className="text-yellow-400" />
             },
             {
               title: "Pitch Stack",
