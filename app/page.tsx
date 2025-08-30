@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { Github, Linkedin, Globe, MessageSquare } from "lucide-react"; // icons
@@ -17,7 +16,8 @@ import {
   FaNotesMedical,
   FaHeartbeat,
   FaToolbox,
-  FaRegLightbulb
+  FaRegLightbulb,
+  FaGamepad
 } from "react-icons/fa";
 
 import {
@@ -191,7 +191,7 @@ export default function Home() {
               title: "IdeaHub",
               desc: "IdeaHub is a modern idea-sharing and ranking platform built with Next.js 15 and React 19.",
               link: "https://idea-hub-self.vercel.app/",
-              icon: <FaRegLightbulb className="text-yellow-400" />
+              icon: <FaRegLightbulb className="text-yellow-400" />,
             },
             {
               title: "Pitch Stack",
@@ -204,6 +204,12 @@ export default function Home() {
               desc: "MediPilot is an intelligent clinical assistant that acts as a secure co-pilot for doctors, nurses, and medical staff.",
               link: "https://github.com/Yaswanth1320/medipilot",
               icon: <FaNotesMedical className="text-red-400" />,
+            },
+            {
+              title: "Hangman Game",
+              desc: "A simple hangman game built with Nextjs.",
+              link: "https://hm-game.vercel.app",
+              icon: <FaGamepad className="text-green-400" />,
             },
             {
               title: "FitBotX",
