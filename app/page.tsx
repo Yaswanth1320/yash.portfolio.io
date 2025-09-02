@@ -4,6 +4,7 @@ import emailjs from "@emailjs/browser";
 import { Github, Linkedin, Globe, MessageSquare } from "lucide-react"; // icons
 import { motion } from "framer-motion";
 import { MdOutlineEventNote } from "react-icons/md";
+import { Puzzle, Grid3x3 } from "lucide-react";
 import {
   SiOpenai,
   SiBookstack,
@@ -17,7 +18,7 @@ import {
   FaHeartbeat,
   FaToolbox,
   FaRegLightbulb,
-  FaGamepad
+  FaGamepad,
 } from "react-icons/fa";
 
 import {
@@ -204,6 +205,12 @@ export default function Home() {
               desc: "MediPilot is an intelligent clinical assistant that acts as a secure co-pilot for doctors, nurses, and medical staff.",
               link: "https://github.com/Yaswanth1320/medipilot",
               icon: <FaNotesMedical className="text-red-400" />,
+            },
+            {
+              title: "Connect4",
+              desc: "A modern, interactive Connect Four game built with React, Next.js, and TypeScript.",
+              link: "http://connect4-omega-lilac.vercel.app/",
+              icon: <Puzzle className="text-green-400 w-6 h-6" />,
             },
             {
               title: "Hangman Game",
