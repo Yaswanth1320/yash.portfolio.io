@@ -19,6 +19,7 @@ import {
   FaToolbox,
   FaRegLightbulb,
   FaGamepad,
+  FaPiggyBank,
 } from "react-icons/fa";
 
 import {
@@ -181,6 +182,12 @@ export default function Home() {
               desc: "Smart note-taking app with AI summaries & search.",
               link: "https://ai-notes-app-iota-sage.vercel.app/",
               icon: <SiNotion className="text-white" />,
+            },
+            {
+              title: "Expense Tracker",
+              desc: "A modern interactive expense tracker built with Next.js, TypeScript, Prisma.",
+              link: "https://expense-tracker-nine-orcin-69.vercel.app",
+              icon: <FaPiggyBank className="text-yellow-600" />,
             },
             {
               title: "Companion AI",
