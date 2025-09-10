@@ -20,6 +20,7 @@ import {
   FaRegLightbulb,
   FaGamepad,
   FaPiggyBank,
+  FaRegStickyNote,
 } from "react-icons/fa";
 
 import {
@@ -188,6 +189,12 @@ export default function Home() {
               desc: "A modern interactive expense tracker built with Next.js, TypeScript, Prisma.",
               link: "https://expense-tracker-nine-orcin-69.vercel.app",
               icon: <FaPiggyBank className="text-yellow-600" />,
+            },
+            {
+              title: "QuickNotes",
+              desc: "QuickNotes is a modern, full-stack note-taking application built with Next.js, offering a seamless and performant user experience.",
+              link: "https://quick-note-phi.vercel.app/",
+              icon: <FaRegStickyNote className="text-green-400" />,
             },
             {
               title: "Companion AI",
