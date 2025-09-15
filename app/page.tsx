@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { Github, Linkedin, Globe, MessageSquare } from "lucide-react"; // icons
 import { motion } from "framer-motion";
-import { MdOutlineEventNote } from "react-icons/md";
+import { MdOutlineEventNote, MdOutlineArticle } from "react-icons/md";
 import { Puzzle, Grid3x3 } from "lucide-react";
 import {
   SiOpenai,
@@ -166,6 +166,13 @@ export default function Home() {
         <h3 className="text-3xl font-bold mb-10">Projects</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl w-full mb-20">
           {[
+            {
+              title: "Blogs",
+              desc: "A modern personal blogging platform built with Next.js and Supabase. It allows users to create, manage, and explore insightful blog posts seamlessly.",
+              link: "https://personal-blog-zeta-amber.vercel.app/",
+              icon: <MdOutlineArticle className="text-white" />,
+            },
+
             {
               title: "EventNest",
               desc: "EventNest is a modern events finding platform built with Next.js and Firebase. It allows users to create, manage, and explore events nearby.",
