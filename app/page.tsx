@@ -21,6 +21,7 @@ import {
   FaGamepad,
   FaPiggyBank,
   FaRegStickyNote,
+  FaBlog,
 } from "react-icons/fa";
 
 import {
@@ -251,6 +252,12 @@ export default function Home() {
               link: "https://github.com/Yaswanth1320/utilityBox",
               icon: <FaToolbox className="text-blue-400" />,
             },
+            {
+              title:"prisma-blog-website",
+              desc: "A simple blog website with prisma and next-auth",
+              link: "https://prisma-blog-website.vercel.app",
+              icon: <FaBlog className="text-green-400" />,
+            }
           ].map((proj, idx) => (
             <a
               key={idx}
